@@ -28,17 +28,14 @@ function prepend(el,list) {
 }
 
 function nth(list, num) {
-    let counter = -1;
-    let currentValue = 0;
-    for (let key in list) {
-        counter++;
-        currentValue = list.value;
-        list = list.rest;
-        if (counter == num) {
-            return currentValue;
-        }
+    if (num === 0) {
+      return list.value;
+    } else if (list.rest === null) {
+      return undefined;
+    } else {
+      return nth(list.rest, num-1);
     }
-}
+  } 
 
 console.log(arrayToList([10, 20, 30]));
 // → {value: 10, rest: {value: 20, rest: null}}
@@ -46,5 +43,5 @@ console.log(listToArray(arrayToList([10, 20, 30])));
 // → [10, 20, 30]
 console.log(prepend(10, prepend(20, null)));
 // → {value: 10, rest: {value: 20, rest: null}}
-console.log(nth(arrayToList([10, 20, 30]), 1));
+console.log(nth(arrayToList([10, 20, 30]), 2));
 // → 20
